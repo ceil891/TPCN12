@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Check .NET SDK') {
+            steps {
+                bat 'dotnet --version'
+                bat 'dotnet --list-sdks'
+            }
+        }
+
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
@@ -33,32 +40,24 @@ pipeline {
         stage('Publish to ./publish folder') {
             steps {
                 echo 'Publishing to ./publish folder...'
-                bat 'dotnet publish -c Release -o ./publish'
+                bat 'dotnet publish -c Release -o "%WORKSPACE%\\publish"'
             }
         }
-        stage('Check .NET SDK') {
-    steps {
-        bat 'dotnet --version'
-        bat 'dotnet --list-sdks'
-    }
-}
 
-       stage('Copy to IIS folder') {
-    steps {
-        echo 'Copying to IIS root folder...'
-        bat 'iisreset /stop'
-        bat '''
-        if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPM" /E /Y /I /R
-        ) else (
-            echo "Publish folder not found!"
-            exit /b 1
-        )
-        '''
-        bat 'iisreset /start'
-    }
-}
-
+        stage('Copy to IIS folder') {
+            steps {
+                echo 'Copying to IIS root folder...'
+                bat 'iisreset /stop'
+                bat '''
+                if exist "C:\\inetpub\\wwwroot\\TrienKhaiPM" (
+                    rmdir /S /Q "C:\\inetpub\\wwwroot\\TrienKhaiPM"
+                )
+                mkdir "C:\\inetpub\\wwwroot\\TrienKhaiPM"
+                xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPM" /E /Y /I /R
+                '''
+                bat 'iisreset /start'
+            }
+        }
 
         stage('Deploy to IIS') {
             steps {
