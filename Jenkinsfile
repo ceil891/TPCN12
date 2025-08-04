@@ -49,7 +49,7 @@ pipeline {
         bat 'iisreset /stop'
         bat '''
         if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TKPMJ" /E /Y /I /R
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPM" /E /Y /I /R
         ) else (
             echo "Publish folder not found!"
             exit /b 1
@@ -66,7 +66,7 @@ pipeline {
                 powershell '''
                     Import-Module WebAdministration
                     if (-not (Test-Path IIS:\\Sites\\TKPMJ)) {
-                        New-Website -Name "TKPMJ" -Port 87 -PhysicalPath "C:\\inetpub\\wwwroot\\TKPMJ" -Force
+                        New-Website -Name "TKPMJ" -Port 87 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPM" -Force
                     }
                 '''
             }
