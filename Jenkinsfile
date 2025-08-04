@@ -5,7 +5,7 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/TKPM.git'
+                git branch: 'main', url: 'https://github.com/Qthanh074/TKPM2.git'
             }
         }
 
@@ -49,7 +49,7 @@ pipeline {
         bat 'iisreset /stop'
         bat '''
         if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" /E /Y /I /R
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TKPM2" /E /Y /I /R
         ) else (
             echo "Publish folder not found!"
             exit /b 1
@@ -65,8 +65,8 @@ pipeline {
                 echo 'Creating IIS Website if not exists...'
                 powershell '''
                     Import-Module WebAdministration
-                    if (-not (Test-Path IIS:\\Sites\\TKPM4)) {
-                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" -Force
+                    if (-not (Test-Path IIS:\\Sites\\TKPM2)) {
+                        New-Website -Name "TKPM2" -Port 85 -PhysicalPath "C:\\inetpub\\wwwroot\\TKPM2" -Force
                     }
                 '''
             }

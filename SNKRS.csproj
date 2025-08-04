@@ -259,6 +259,8 @@
     <Compile Include="ViewModels\ShopViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="Content\AdminLTE\.babelrc.js" />
     <Content Include="Content\AdminLTE\build\config\postcss.config.js" />
     <Content Include="Content\AdminLTE\build\config\rollup.config.js" />
@@ -2752,6 +2754,9 @@
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\User\Create.cshtml" />
+    <Content Include="Jenkinsfile" />
+    <Content Include=".dockerignore" />
+    <Content Include="Dockerfile" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
