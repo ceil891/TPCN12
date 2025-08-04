@@ -1,4 +1,0 @@
-*.cs text eol=crlf
-*.fs text eol=crlf
-*.js text eol=lf
-*.css text eol=lf
