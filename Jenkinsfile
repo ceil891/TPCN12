@@ -5,7 +5,7 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/TKPM2.git'
+                git branch: 'main', url: 'https://github.com/Qthanh074/GIT-TKPM.git'
             }
         }
 
@@ -66,7 +66,7 @@ pipeline {
                 powershell '''
                     Import-Module WebAdministration
                     if (-not (Test-Path IIS:\\Sites\\TKPMJ)) {
-                        New-Website -Name "TKPMJ" -Port 87 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPM" -Force
+                        New-Website -Name "TKPMJ" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPM" -Force
                     }
                 '''
             }
