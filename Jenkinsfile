@@ -69,7 +69,7 @@ pipeline {
                 powershell '''
                     Import-Module WebAdministration
                     if (-not (Test-Path IIS:\\Sites\\TKPM)) {
-                        New-Website -Name "TKPM4" -Port 85 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhai" -Force
+                        New-Website -Name "TKPM4" -Port 87 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhai" -Force
                     }
                 '''
             }
