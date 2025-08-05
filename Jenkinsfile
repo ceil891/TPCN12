@@ -5,23 +5,26 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning source code'
-                git branch: 'main', url: 'https://github.com/Qthanh074/GIT-TKPM.git'
+                git branch: 'main', url: 'https://github.com/ceil891/TPCN12.git'
             }
         }
 
-        stage('Restore package') {
-            steps {
-                echo 'Restoring packages...'
-                bat 'dotnet restore'
-            }
-        }
+        stage('restore package') {
+		steps
+		{
+			echo 'Restore package'
+			bat 'dotnet restore'
+		}
+	     }
 
-        stage('Build') {
-            steps {
-                echo 'Building project...'
-                bat 'dotnet build --configuration Release'
-            }
-        }
+
+        stage ('build') {
+		steps {
+			echo 'build project netcore'
+			bat 'dotnet build  --configuration Release'
+		}
+	}
+
 
         stage('Tests') {
             steps {
@@ -49,7 +52,7 @@ pipeline {
         bat 'iisreset /stop'
         bat '''
         if exist "%WORKSPACE%\\publish" (
-            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" /E /Y /I /R
+            xcopy "%WORKSPACE%\\publish" "C:\\inetpub\\wwwroot\\TrienKhai" /E /Y /I /R
         ) else (
             echo "Publish folder not found!"
             exit /b 1
@@ -65,8 +68,8 @@ pipeline {
                 echo 'Creating IIS Website if not exists...'
                 powershell '''
                     Import-Module WebAdministration
-                    if (-not (Test-Path IIS:\\Sites\\TKPM4)) {
-                        New-Website -Name "TKPM4" -Port 83 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhaiPhamMem4" -Force
+                    if (-not (Test-Path IIS:\\Sites\\TKPM)) {
+                        New-Website -Name "TKPM4" -Port 85 -PhysicalPath "C:\\inetpub\\wwwroot\\TrienKhai" -Force
                     }
                 '''
             }
